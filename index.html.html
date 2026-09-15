@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECNO Ekip Katılım</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; display:flex; justify-content:center; align-items:center;
+    font-family:Arial,sans-serif; background:linear-gradient(135deg,#17132e,#351b59,#111827);
+    color:#fff; padding:20px;
+  }
+  .card{
+    width:min(680px,100%); background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(14px); border-radius:24px; padding:34px; box-shadow:0 20px 60px rgba(0,0,0,.35);
+  }
+  .logo{font-weight:900; letter-spacing:3px; font-size:20px; color:#c9a7ff}
+  h1{font-size:38px;margin:14px 0 10px}
+  p{color:#d8d3e5;line-height:1.6}
+  .screen{display:none}.screen.active{display:block}
+  button{
+    border:0; border-radius:12px; padding:13px 22px; font-size:16px; font-weight:700;
+    cursor:pointer; background:#9b5cff; color:white; margin-top:12px;
+  }
+  button:hover{background:#8442eb}
+  .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+  label{display:block;margin:15px 0 7px;font-weight:700}
+  input,textarea{
+    width:100%; padding:13px; border-radius:10px; border:1px solid #5b4b72;
+    background:#171221; color:#fff; outline:none; font-size:15px;
+  }
+  textarea{min-height:100px;resize:vertical}
+  input:focus,textarea:focus{border-color:#a66cff}
+  .note{font-size:13px;color:#bdb5cb;margin-top:18px}
+  .success{font-size:70px}
+  .phone{font-size:26px;font-weight:900;letter-spacing:2px;margin:18px 0;color:#d6b8ff}
+  .error{color:#ff9f9f;font-size:14px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">TECNO EKİP</div>
+
+  <section id="welcome" class="screen active">
+    <h1>TECNO Ekip Katılım</h1>
+    <p>Hoş geldin! TECNO Ekibi'ne katılmak için kısa başvuru formunu doldurabilirsin.</p>
+    <button onclick="show('form')">İleri →</button>
+  </section>
+
+  <section id="form" class="screen">
+    <h1>Başvuru Formu</h1>
+    <form id="joinForm">
+      <label>İsim</label>
+      <input id="name" required>
+
+      <label>Soy isim</label>
+      <input id="surname" required>
+
+      <label>Okul</label>
+      <input id="school" required>
+
+      <label>Yaş - Sınıf</label>
+      <input id="ageClass" placeholder="Örn. 12 yaş - 6. sınıf" required>
+
+      <label>Hedeflediğin okul</label>
+      <input id="target" required>
+
+      <label>Hangi konuda yardım edeceksin?</label>
+      <textarea id="help" placeholder="Örn. yazılım, tasarım, video..." required></textarea>
+
+      <div id="formError" class="error"></div>
+      <div class="actions">
+        <button type="button" onclick="show('welcome')">← Geri</button>
+        <button type="submit">İleri →</button>
+      </div>
+    </form>
+    <p class="note">Not: Bu demo form bilgileri internet üzerinden göndermez veya kaydetmez.</p>
+  </section>
+
+  <section id="send" class="screen">
+    <h1>Başvurunu Hazırla</h1>
+    <p>Başvurunun ekran görüntüsünü (SS) al ve aşağıdaki numaraya gönder:</p>
+    <div class="phone">507 012 72 02</div>
+    <button onclick="takeScreenshot()">📸 SS Al</button>
+    <button onclick="show('approved')">SS'yi Gönderdim →</button>
+  </section>
+
+  <section id="approved" class="screen">
+    <div class="success">✓</div>
+    <h1>Başvuru Onaylandı!</h1>
+    <p>TECNO Ekibi'ne katılım başvurun tamamlandı. Hoş geldin! 🚀</p>
+    <button onclick="show('welcome')">Ana Sayfaya Dön</button>
+  </section>
+</div>
+
+<script>
+function takeScreenshot(){
+  alert("Ekran görüntüsü almak için Windows'ta Win + Shift + S tuşlarına basabilirsin.");
+}
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+document.getElementById('joinForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('formError').textContent='';
+  show('send');
+});
+</script>
+</body>
+</html>
